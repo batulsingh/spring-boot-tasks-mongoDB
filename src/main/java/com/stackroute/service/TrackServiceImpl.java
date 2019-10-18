@@ -6,12 +6,11 @@ import com.stackroute.exceptions.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class TrackServiceImpl implements TrackService {  // userservice implementation class implements userservice interface and overrides both the methods
+public class TrackServiceImpl implements TrackService {  // TrackServiceImpl implementation class implements Trackservice interface and overrides both the methods
 
     TrackRepository trackRepository;
 
@@ -49,11 +48,15 @@ public class TrackServiceImpl implements TrackService {  // userservice implemen
         trackRepository.delete(track);
     }
 //    @Transactional
+
     @Override
-    public List<String> findBytrackName(String t) throws TrackNotFoundException{
- //       if(boolean existsTrackBytrackName(String ))
-        var trc = (List<String>) trackRepository.findByName(t);
+    public List<String> findById(int t) throws TrackNotFoundException{
+        if(!trackRepository.existsById(t)){
+            throw new TrackNotFoundException("Track doesn't exists");
+        }
+        var trc = (List<String>) trackRepository.findByTrackId(t);
         return trc;
+
     }
 
     //public Track findById(String trackId) {

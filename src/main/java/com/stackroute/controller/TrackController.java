@@ -1,12 +1,8 @@
 package com.stackroute.controller;
 
 import com.stackroute.exceptions.TrackAlreadyExistsException;
-import com.stackroute.repository.TrackRepository;
-import com.stackroute.service.TrackServiceImpl.*;
 import com.stackroute.domain.Track;
 import com.stackroute.service.TrackService ;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,12 +69,12 @@ public class TrackController {   // @RestController annotation is a responsible 
         return responseEntity;
     }
     /*to search using trackName*/
-    @GetMapping("track/{trackName}")
-    public ResponseEntity<?> findBytrackName(@PathVariable String trackName) {
+    @GetMapping("track/{trackId}")
+    public ResponseEntity<?> findById(@PathVariable int trackId) {
         ResponseEntity responseEntity;
         try {
-            trackService.findBytrackName(trackName);
-            responseEntity = new ResponseEntity<List<String>>(trackService.findBytrackName(trackName), HttpStatus.OK);
+            trackService.findById(trackId);
+            responseEntity = new ResponseEntity<List<String>>(trackService.findById(trackId), HttpStatus.OK);
         } catch (Exception ex1) {
             responseEntity = new ResponseEntity<String>(ex1.getMessage(), HttpStatus.CONFLICT);
         }
